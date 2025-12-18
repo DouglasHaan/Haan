@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HAAN Coaching System | A Training System for Life</title>
+  <meta name="description" content="HAAN Coaching. A training system for life built on Health, Alignment, Action, and Accountability." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=EB+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg: #070707;
+      --panel: rgba(255,255,255,0.03);
+      --panel-strong: rgba(255,255,255,0.05);
+      --text: #f6f6f6;
+      --muted: #c7c7c7;
+      --line: rgba(255,255,255,0.12);
+      --accent: #f6f6f6;
+    }
+
+    *{ box-sizing: border-box; }
+    html, body{
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "EB Garamond", Garamond, "Times New Roman", serif;
+      line-height: 1.55;
+      letter-spacing: 0.2px;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    a{ color: inherit; text-decoration: none; }
+    a:focus{ outline: 2px solid var(--accent); outline-offset: 3px; }
+
+    .container{
+      width: min(1100px, calc(100% - 48px));
+      margin: 0 auto;
+    }
+
+    .nav{
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(10px);
+      background: rgba(7,7,7,0.78);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav-inner{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 0;
+      gap: 16px;
+    }
+
+    .brand{
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .brand .logo{
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .brand .tag{
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 0.6px;
+    }
+
+    .nav-links{
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .nav-links a{
+      font-size: 14px;
+      color: var(--muted);
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+    }
+
+    .nav-links a:hover{
+      color: var(--text);
+      border-color: var(--line);
+      background: rgba(255,255,255,0.03);
+    }
+
+    .btn{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 18px;
+      border-radius: 999px;
+      border: 1px solid var(--accent);
+      background: transparent;
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1.6px;
+      transition: transform 120ms ease, background 120ms ease, color 120ms ease, border-color 120ms ease;
+      text-transform: uppercase;
+    }
+
+    .btn:hover{
+      transform: translateY(-1px);
+      background: var(--accent);
+      color: #0b0b0b;
+    }
+
+    .btn.secondary{
+      border-color: var(--line);
+      color: var(--text);
+      background: transparent;
+      text-transform: uppercase;
+    }
+
+    .btn.secondary:hover{
+      border-color: var(--accent);
+      background: rgba(255,255,255,0.08);
+      color: var(--text);
+      transform: translateY(-1px);
+    }
+
+    .hero{
+      padding: 110px 0 70px 0;
+      border-bottom: 1px solid var(--line);
+      background:
+        radial-gradient(900px 300px at 20% 0%, rgba(255,255,255,0.06), rgba(255,255,255,0) 60%),
+        radial-gradient(900px 300px at 80% 0%, rgba(255,255,255,0.05), rgba(255,255,255,0) 60%);
+    }
+
+    .hero-grid{
+      display: grid;
+      grid-template-columns: 1.35fr 0.65fr;
+      gap: 36px;
+      align-items: start;
+    }
+
+    h1{
+      margin: 0 0 12px 0;
+      font-size: clamp(40px, 5.2vw, 66px);
+      line-height: 1.02;
+      letter-spacing: 0.2px;
+      font-weight: 700;
+      font-family: "Libre Baskerville", serif;
+    }
+
+    .subhead{
+      margin: 0 0 18px 0;
+      font-size: clamp(16px, 2vw, 20px);
+      color: var(--muted);
+      max-width: 52ch;
+    }
+
+    .hero-copy{
+      margin: 0 0 24px 0;
+      font-size: 18px;
+      color: var(--text);
+      max-width: 60ch;
+    }
+
+    .hero-actions{
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+
+    .hero-panel{
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, var(--panel-strong), var(--panel));
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    .panel-title{
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1.4px;
+      color: var(--muted);
+      margin: 0 0 10px 0;
+    }
+
+    .bullets{
+      margin: 0;
+      padding-left: 18px;
+      color: var(--text);
+      font-size: 15px;
+    }
+
+    .bullets li{
+      margin: 8px 0;
+      color: var(--muted);
+    }
+
+    .section{
+      padding: 90px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .section h2{
+      margin: 0 0 10px 0;
+      font-size: 36px;
+      line-height: 1.12;
+      letter-spacing: 0.2px;
+      font-weight: 700;
+      font-family: "Libre Baskerville", serif;
+    }
+
+    .section p{
+      margin: 0 0 14px 0;
+      color: var(--muted);
+      font-size: 18px;
+      max-width: 78ch;
+    }
+
+    .two-col{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 26px;
+      margin-top: 18px;
+      align-items: start;
+    }
+
+    .card{
+      border: 1px solid var(--line);
+      background: var(--panel);
+      border-radius: 18px;
+      padding: 20px;
+    }
+
+    .card h3{
+      margin: 0 0 8px 0;
+      font-size: 22px;
+      letter-spacing: 0.2px;
+      font-weight: 700;
+      font-family: "Libre Baskerville", serif;
+    }
+
+    .card p{
+      margin: 0 0 12px 0;
+      font-size: 16px;
+      color: var(--muted);
+    }
+
+    .mini-list{
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .mini-list li{ margin: 8px 0; }
+
+    .method-grid{
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .pill{
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.02);
+      color: var(--muted);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+    }
+
+    .letter{
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--accent);
+      color: var(--bg);
+      background: var(--accent);
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .quote{
+      margin-top: 18px;
+      border-left: 2px solid var(--accent);
+      padding: 18px 18px 18px 16px;
+      background: rgba(255,255,255,0.02);
+      border-radius: 12px;
+    }
+
+    .quote p{
+      margin: 0;
+      color: var(--text);
+      font-size: 18px;
+      max-width: 90ch;
+    }
+
+    .quote .byline{
+      margin-top: 10px;
+      font-size: 14px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .checkins{
+      margin-top: 14px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .check{
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.02);
+      border-radius: 14px;
+      padding: 14px 16px;
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .cta{
+      padding: 62px 0;
+      background:
+        radial-gradient(900px 340px at 50% 20%, rgba(255,255,255,0.07), rgba(255,255,255,0) 62%);
+    }
+
+    .cta-wrap{
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 28px;
+      background: rgba(255,255,255,0.03);
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .cta h2{
+      margin: 0 0 8px 0;
+      font-size: 34px;
+    }
+
+    .cta p{
+      margin: 0 0 16px 0;
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    form{ display: grid; gap: 10px; }
+
+    label{
+      font-size: 12px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1.1px;
+    }
+
+    input, textarea{
+      width: 100%;
+      padding: 12px 12px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: rgba(0,0,0,0.25);
+      color: var(--text);
+      font-family: inherit;
+      font-size: 16px;
+    }
+
+    textarea{ min-height: 110px; resize: vertical; }
+
+    .fineprint{
+      margin-top: 10px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    footer{
+      border-top: 1px solid var(--line);
+      padding: 22px 0 34px 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .footer-grid{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      align-items: start;
+    }
+
+    .footer-right{ text-align: right; }
+
+    @media (max-width: 900px){
+      .hero-grid{ grid-template-columns: 1fr; }
+      .two-col{ grid-template-columns: 1fr; }
+      .method-grid{ grid-template-columns: 1fr; }
+      .checkins{ grid-template-columns: 1fr; }
+      .cta-wrap{ grid-template-columns: 1fr; }
+      .footer-grid{ grid-template-columns: 1fr; }
+      .footer-right{ text-align: left; }
+      .nav-links{ display: none; }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="nav">
+    <div class="container">
+      <div class="nav-inner">
+        <div class="brand">
+          <div class="logo">HAAN</div>
+          <div class="tag">A Training System for Life</div>
+        </div>
+
+        <nav class="nav-links" aria-label="Primary">
+          <a href="#system">The System</a>
+          <a href="#how">How It Works</a>
+          <a href="#for">Who It Is For</a>
+          <a class="btn" href="#contact">Contact</a>
+        </nav>
+
+        <a class="btn" href="#contact">Contact</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="top">
+      <div class="container">
+        <div class="hero-grid">
+          <div>
+            <h1>A Training System for Life</h1>
+            <p class="subhead">
+              A results-driven coaching system that builds energy, sharpens direction, forces execution, and sustains progress across life, career, business, and wellness.
+            </p>
+
+            <p class="hero-copy">
+              The HAAN Coaching System is not motivation, therapy, or advice. It is a structured coaching system built over 20 years of real-world work with people who want clarity, discipline, and forward momentum.
+              You do not wait to feel ready. You train first. Your life gets stronger.
+            </p>
+
+            <div class="hero-actions">
+              <a class="btn" href="#contact">Contact</a>
+              <a class="btn secondary" href="#system">Explore the HAAN Coaching System</a>
+            </div>
+          </div>
+
+          <aside class="hero-panel" aria-label="Trust indicators">
+            <p class="panel-title">Built for high standards</p>
+            <ul class="bullets">
+              <li>Built on 20+ years of coaching experience</li>
+              <li>Proven across life, career, business, and wellness</li>
+              <li>Simple, repeatable, and sustainable</li>
+              <li>Designed for structure, not hype</li>
+            </ul>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="difference">
+      <div class="container">
+        <h2>What Makes HAAN Different</h2>
+        <p>
+          Most coaching focuses on talking, thinking, and waiting for clarity. The HAAN Coaching System focuses on training.
+          Just like physical strength is built through consistent movement, life strength is built through daily action, structure, and accountability.
+          Clarity comes after you move, not before.
+        </p>
+
+        <div class="two-col">
+          <div class="card">
+            <h3>Life Training, Not Life Advice</h3>
+            <p>
+              The goal is not inspiration. The goal is execution. Your coach provides structure, standards, and honest accountability so progress becomes inevitable.
+            </p>
+          </div>
+          <div class="card">
+            <h3>Simple Principles, Practiced Daily</h3>
+            <p>
+              You train the same core movements every week. You build momentum. You refine based on action. Over time, your life becomes stronger and more aligned.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="system">
+      <div class="container">
+        <h2>The HAAN Coaching System</h2>
+        <p>
+          One integrated coaching system trained one-on-one, weekly, and reinforced through community.
+        </p>
+
+        <div class="card" style="margin-top:22px;">
+          <h3>Why This System Works Everywhere</h3>
+          <p>
+            Results break down for the same reasons across every area of life: low energy, unclear direction, inconsistent execution, and a lack of structure. The HAAN Coaching System solves these bottlenecks directly.
+          </p>
+          <ul class="mini-list">
+            <li>Health & Energy fuel focus, discipline, and resilience</li>
+            <li>Alignment prevents wasted effort and burnout</li>
+            <li>Action creates clarity through real-world execution</li>
+            <li>Non‑negotiables make consistency automatic</li>
+          </ul>
+          <p style="margin-top:10px;">
+            Because these forces govern performance everywhere, the system applies equally to career growth, leadership, business execution, wellness, and life direction.
+          </p>
+        </div>
+
+        <div class="two-col">
+          <div class="card">
+            <h3>Career Coaching</h3>
+            <p>
+              Career coaching applies the HAAN Coaching System to your work, income, and professional direction.
+              Clients work one-on-one, weekly, to build clarity, confidence, and forward momentum toward the right opportunities.
+            </p>
+          </div>
+          <div class="card">
+            <h3>Life Coaching</h3>
+            <p>
+              Life coaching focuses on alignment, decision-making, and meaning.
+              This work strengthens the foundation everything else is built on and helps reduce mental noise and drift.
+            </p>
+          </div>
+          <div class="card">
+            <h3>Business Coaching</h3>
+            <p>
+              Business coaching applies the HAAN Coaching System to leadership, strategy, and execution.
+              We work with founders and leaders to build disciplined growth without burnout.
+            </p>
+          </div>
+          <div class="card">
+            <h3>Fitness Training and Wellness Coaching</h3>
+            <p>
+              Fitness training and wellness coaching provide the physical foundation of the system.
+              Energy, resilience, and discipline are built through the body and accelerate every other area of life.
+            </p>
+          </div>
+        </div>
+
+        <div class="method-grid">
+          <div class="card">
+            <div class="pill"><span class="letter">H</span> Health & Energy</div>
+            <h3>The energy system behind all results</h3>
+            <p>
+              Results collapse without energy. Health is not a goal — it is the infrastructure that powers focus, discipline, and execution across every area of life.
+            </p>
+            <ul class="mini-list">
+              <li>Functional training for real life</li>
+              <li>Low-sugar, whole-food nourishment</li>
+              <li>Nature, recovery, and sleep</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <div class="pill"><span class="letter">A</span> Alignment</div>
+            <h3>Direction before speed</h3>
+            <p>
+              Alignment determines where energy goes. Without it, effort is wasted. With it, momentum compounds and burnout disappears.
+            </p>
+            <ul class="mini-list">
+              <li>Clarifying values and meaning</li>
+              <li>Faith, purpose, and long-term vision</li>
+              <li>Identifying what fuels the fire</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <div class="pill"><span class="letter">A</span> Action</div>
+            <h3>Execution under real conditions</h3>
+            <p>
+              Clarity is earned through movement. You train execution first, learn in motion, and build momentum through disciplined daily action.
+            </p>
+            <ul class="mini-list">
+              <li>Daily execution over perfection</li>
+              <li>Learning while doing</li>
+              <li>Small actions that compound</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <div class="pill"><span class="letter">N</span> Non‑Negotiables</div>
+            <h3>The structure that makes results inevitable</h3>
+            <p>
+              Non‑negotiables remove choice from consistency. Standards, feedback loops, and reporting create a system where follow‑through becomes automatic.
+            </p>
+            <ul class="mini-list">
+              <li>Weekly coaching check-ins</li>
+              <li>Habit and action tracking</li>
+              <li>Ownership and follow-through</li>
+            </ul>
+          </div>
+        </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="community">
+      <div class="container">
+        <h2>Community and Mastermind</h2>
+        <p>
+          The HAAN Coaching System is not experienced in isolation. In addition to one-on-one coaching, clients are connected to
+          invite-only communities aligned with their goals, pace, and interests.
+        </p>
+
+        <div class="two-col">
+          <div class="card">
+            <h3>Invite-Only by Design</h3>
+            <p>
+              Community access is curated, not open. Clients are placed into small groups based on focus areas such as career,
+              leadership, business, or wellness. This ensures relevance, trust, and meaningful connection.
+            </p>
+          </div>
+          <div class="card">
+            <h3>Mastermind-Style Support</h3>
+            <p>
+              Groups operate in a mastermind-style format, providing perspective, accountability, and shared standards.
+              This layer reinforces progress made in one-on-one coaching and accelerates growth through real human connection.
+            </p>
+          </div>
+        </div>
+
+        <p style="margin-top:18px;">
+          Community is a multiplier. It strengthens commitment, sharpens thinking, and reminds clients they are not building alone.
+        </p>
+      </div>
+    </section>
+
+    <section class="section" id="how">
+      <div class="container">
+        <h2>How Coaching Works</h2>
+        <p>
+          Clients are coached through all four pillars simultaneously. Progress is reviewed weekly using simple, direct check-ins. The plan adjusts based on action, not excuses.
+        </p>
+
+        <div class="checkins" aria-label="Weekly check-ins">
+          <div class="check">Did you move your body?</div>
+          <div class="check">Did you eat to support energy?</div>
+          <div class="check">Did you act in alignment with your purpose?</div>
+          <div class="check">Did you show up and report honestly?</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="for">
+      <div class="container">
+        <h2>Who This Is For</h2>
+        <p>
+          The HAAN Coaching System is built for people who want structure, not hype. If you are done overthinking and ready to train daily, this model works.
+        </p>
+
+        <div class="two-col">
+          <div class="card">
+            <h3>This is for you if</h3>
+            <ul class="mini-list">
+              <li>You want structure and discipline</li>
+              <li>You value health, integrity, and standards</li>
+              <li>You want progress across life, career, and business</li>
+              <li>You are ready to execute consistently</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>This is not for you if</h3>
+            <ul class="mini-list">
+              <li>You want shortcuts</li>
+              <li>You want motivation without action</li>
+              <li>You avoid accountability</li>
+              <li>You are not ready to train daily</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta" id="contact">
+      <div class="container">
+        <div class="cta-wrap">
+          <div>
+            <h2>Train Your Life</h2>
+            <p>
+              Coaching built on structure, discipline, and daily execution. Small intake. High standards. Real work.
+            </p>
+            <div class="hero-actions">
+              <a class="btn" href="#apply-form">Contact HAAN Coaching</a>
+              <a class="btn secondary" href="#system">Review the Coaching System</a>
+            </div>
+            <div class="fineprint">
+              Private intake. High standards. Expect a reply by email.
+            </div>
+          </div>
+
+          <div class="card" id="apply-form">
+            <h3>Contact</h3>
+            <p>Submit an inquiry and we will respond by email.</p>
+
+            <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+              <input type="hidden" name="_subject" value="New HAAN Coaching inquiry" />
+              <input type="hidden" name="source" value="HAAN landing page" />
+
+              <div>
+                <label for="name">Full Name</label>
+                <input id="name" name="name" type="text" autocomplete="name" required />
+              </div>
+
+              <div>
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" autocomplete="email" required />
+              </div>
+
+              <div>
+                <label for="goal">What do you want to train for right now</label>
+                <textarea id="goal" name="goal" required></textarea>
+              </div>
+
+              <button class="btn" type="submit">Submit Contact</button>
+              <div class="fineprint">You will receive this message at info@douglashaan.com once the form endpoint is connected.</div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div style="text-transform: uppercase; letter-spacing: 2px; font-weight: 700; color: #f2f2f2;">HAAN Coaching</div>
+          <div style="margin-top: 6px;">Total Success. Total Well-Being.</div>
+          <div style="margin-top: 6px;">A Training System for Life.</div>
+        </div>
+        <div class="footer-right">
+          <div>© <span id="year"></span> HAAN Coaching</div>
+          <div style="margin-top: 6px;"><a href="#top">Back to top</a></div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
